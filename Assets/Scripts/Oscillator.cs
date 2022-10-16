@@ -8,7 +8,7 @@ public class Oscillator : MonoBehaviour
     float movementFactor;
 
     [SerializeField] Vector3 movementVector; // values set within Unity
-    [SerializeField] float period = 2f;
+    [SerializeField] float period = 1.5f;
     
     void Start()
     {
@@ -22,6 +22,11 @@ public class Oscillator : MonoBehaviour
 
     private void OscillateObstacle()
     {
+        if (period <= Mathf.Epsilon) // the smallest floating point value is Mathf.Epsilon - try to avoid using 0
+        {
+            return;
+        }
+
         float cycles = Time.time / period; // continually growing over time
                                            // eg. 2 sec will complete 1 cycle; 2 sec / 2 (period) = 1, which indicates a lapse after 2 seconds
 
